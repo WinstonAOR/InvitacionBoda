@@ -99,6 +99,7 @@
             border: 1.5px solid #eae5da;
             background-image: radial-gradient(rgba(0,0,0,0.012) 1px, transparent 0);
             background-size: 16px 16px;
+			margin: 0 auto;
         }
 
         /* Troquelados del Ticket Aéreo */
@@ -216,7 +217,7 @@
 
     <!-- BARRA DE PROGRESO DE SCROLL CON INDICADOR DE AVION REALISTA -->
     <div id="scroll-progress-container" class="fixed top-0 left-0 w-full h-5 bg-forestGreen/10 z-50 hidden pointer-events-none">
-        <div id="scroll-progress-bar" class="h-full bg-weddingGold relative transition-all duration-75" style="width: 0%;">
+        <div id="scroll-progress-bar" class="h-full bg-weddingGold relative transition-all duration-25" style="width: 0%;">
             <!-- Avión Realista como Indicador de Progreso -->
             <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white rounded-full p-1 shadow-md border border-weddingGold flex items-center justify-center w-7 h-7">
                 <svg class="w-4 h-4 text-forestGreen transform rotate-90" viewBox="0 0 24 24" fill="currentColor">
@@ -319,7 +320,7 @@
             <div class="ticket-card p-6 md:p-10">
                 <div class="section-title text-gray-400 text-[10px] tracking-[0.2em] font-mono border-b-2 border-dashed border-gray-200 pb-4 mb-8 flex justify-between uppercase">
                     <span class="font-bold">Fecha de Vuelo</span>
-                    <span>GATE: 13</span>
+                    <span>Puerta: 13</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     
@@ -397,49 +398,51 @@
                 <div class="text-center max-w-xl mx-auto">
                     <span class="text-weddingGold text-2xl font-serif block mb-2">✦</span>
                     <h3 class="text-2xl font-serif text-forestGreen font-bold mb-3">Código de Vestimenta: Formal</h3>
+                    
+                    <!-- Tarjeta elegante que destaca los colores exclusivos de los novios -->
+                    <div class="mb-8 bg-amber-50/80 border border-weddingGold/30 rounded-xl p-4 inline-block text-xs text-forestGreen font-medium font-sans shadow-sm">
+                        ✨ <span class="uppercase tracking-wider font-bold">Nota Especial:</span> Reservamos el color <span class="font-bold underline decoration-weddingGold">Blanco</span> y el <span class="font-bold underline decoration-weddingGold">Verde Esmeralda</span> exclusivamente para los novios. ¡Muchas gracias!
+                    </div>
+
                     <p class="text-gray-600 text-sm font-sans mb-8 leading-relaxed">
                         Queremos que luzcan espectaculares en este viaje. Les sugerimos vestir en armonía con los maravillosos colores de nuestro destino natural:
                     </p>
 
-                    <!-- Paleta Interactiva de Colores -->
-                    <div class="grid grid-cols-5 gap-3 max-w-md mx-auto mb-8">
-                        <div class="flex flex-col items-center">
-                            <button onclick="selectColorDress('forest')" class="w-12 h-12 rounded-full bg-[#1B3F18] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Verde Bosque"></button>
-                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Verde Bosque</span>
+                    <!-- Paleta Interactiva de Colores (Ajustada a 3 columnas para centrado perfecto) -->
+                    <div class="grid grid-cols-4 gap-3 max-w-sm mx-auto mb-8">
+						<div class="flex flex-col items-center">
+                            <button onclick="selectColorDress('beige')" class="w-12 h-12 rounded-full bg-[#CBBD93] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Beige"></button>
+                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Beige</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <button onclick="selectColorDress('sage')" class="w-12 h-12 rounded-full bg-[#718355] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Verde Salvia"></button>
-                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Verde Olivia</span>
+                            <button onclick="selectColorDress('sage')" class="w-12 h-12 rounded-full bg-[#718355] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Verde Olivia"></button>
+                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Verde Olivo</span>
+                        </div>
+						<div class="flex flex-col items-center">
+                            <button onclick="selectColorDress('cafe')" class="w-12 h-12 rounded-full bg-[#6F5E53] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Café"></button>
+                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Café</span>
                         </div>
                         <div class="flex flex-col items-center">
-                            <button onclick="selectColorDress('gold')" class="w-12 h-12 rounded-full bg-[#D4AF37] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Dorado"></button>
-                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Dorado</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <button onclick="selectColorDress('cream')" class="w-12 h-12 rounded-full bg-[#F3EFE9] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Crema"></button>
-                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Crema</span>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <button onclick="selectColorDress('terracota')" class="w-12 h-12 rounded-full bg-[#C05C46] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Terracota"></button>
-                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Terracota</span>
-                        </div>
+                            <button onclick="selectColorDress('lila')" class="w-12 h-12 rounded-full bg-[#A799B7] hover:scale-110 active:scale-90 transition-transform shadow-md border-4 border-white" aria-label="Lila"></button>
+                            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-wider mt-2 font-sans">Lila / Lavanda</span>
+                        </div>                        
                     </div>
 
                     <!-- Cuadro Informativo Dinámico -->
                     <div id="dress-code-advice" class="bg-forestGreen/5 px-6 py-4 rounded-xl border border-forestGreen/10 min-h-[70px] flex items-center justify-center transition-all duration-300">
                         <p class="text-xs text-forestGreen font-medium font-sans italic tracking-wide">
-                            Presiona cualquiera de los colores de equipaje sugeridos para obtener recomendaciones.
+                            Presiona cualquiera de los colores sugeridos para obtener significados.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-gray-100 text-left font-sans text-xs">
                         <div class="bg-gray-50 p-4 rounded-xl">
                             <h4 class="font-bold text-forestGreen uppercase tracking-wider mb-2">🙋‍♀️ Damas</h4>
-                            <p class="text-gray-600 leading-relaxed">Vestido formal, largo ideal para clima fresco o templado de Cartago.</p>
+                            <p class="text-gray-600 leading-relaxed">Vestido formal, largo ideal para clima fresco de Cartago.</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-xl">
                             <h4 class="font-bold text-forestGreen uppercase tracking-wider mb-2">🙋‍♂️ Caballeros</h4>
-                            <p class="text-gray-600 leading-relaxed">Traje formal completo o conjunto sastre elegante. Se permiten corbatas de tono tierra.</p>
+                            <p class="text-gray-600 leading-relaxed">Traje o vestimenta formal.</p>
                         </div>
                     </div>
                 </div>
@@ -496,7 +499,7 @@
             <div class="ticket-card p-6 md:p-10 bg-sageGreen/5 border-2 border-dashed border-sageGreen/30">
                 <div class="section-title text-gray-400 text-[10px] tracking-[0.2em] font-mono border-b-2 border-dashed border-sageGreen/20 pb-4 mb-8 flex justify-between uppercase">
                     <span class="font-bold">Pase de Confirmación</span>
-                    <span>PASSPORT ID: SW130227</span>
+                    <span>No. de Pasaporte: S13022027W</span>
                 </div>
                 <div class="text-center py-4">
                     <h2 class="text-3xl font-serif text-forestGreen font-bold mb-2">¡Confirma tu Asiento de Vuelo!</h2>
@@ -527,7 +530,7 @@
                         <svg class="w-56 h-10" viewBox="0 0 100 20">
                             <rect width="2" height="20" fill="black"/><rect x="3" width="1" height="20" fill="black"/><rect x="6" width="3" height="20" fill="black"/><rect x="11" width="1" height="20" fill="black"/><rect x="14" width="5" height="20" fill="black"/><rect x="22" width="2" height="20" fill="black"/><rect x="27" width="1" height="20" fill="black"/><rect x="31" width="4" height="20" fill="black"/><rect x="40" width="2" height="20" fill="black"/><rect x="46" width="6" height="20" fill="black"/><rect x="58" width="1" height="20" fill="black"/><rect x="64" width="3" height="20" fill="black"/><rect x="71" width="2" height="20" fill="black"/><rect x="79" width="1" height="20" fill="black"/><rect x="85" width="5" height="20" fill="black"/>
                         </svg>
-                        <p class="text-[7px] font-mono mt-2 tracking-widest uppercase">BOARDING-PASS-ID-SUSAN-WINSTON-FEB-2027</p>
+                        <p class="text-[7px] font-mono mt-2 tracking-widest uppercase">PASE-DE-ABORDAR-SUSAN-WINSTON-FEB-2027</p>
                     </div>
                 </div>
             </div>
@@ -595,28 +598,28 @@
                 x: -320, 
                 scale: 0.9,
                 opacity: 0, 
-                duration: 1.6, 
+                duration: 0.6, 
                 ease: "power3.inOut"
             })
             .to(passportScreen, {
                 opacity: 0,
-                duration: 0.8,
+                duration: 0.3,
                 onComplete: () => {
                     passportScreen.style.display = 'none';
                     progressBarContainer.classList.remove('hidden'); // Mostrar barra de progreso
                 }
-            }, "-=0.6")
+            }, "-=0.2")
             .set("body", { className: "-=no-scroll" })
             .set(main, { display: 'block' })
             .to(main, { opacity: 1, duration: 0.1 })
-            .to(indicator, { opacity: 1, duration: 1.2 })
+            .to(indicator, { opacity: 1, duration: 0.5 })
             .fromTo(".ticket-section", 
                 { opacity: 0, y: 60 },
                 { 
                     opacity: 1, 
                     y: 0, 
-                    duration: 1.2, 
-                    stagger: 0.25, 
+                    duration: 0.6, 
+                    stagger: 0.1, 
                     ease: "power3.out",
                     onComplete: () => {
                         initScrollAnimations();
@@ -672,8 +675,24 @@
 
             errorMsg.classList.add('hidden');
             
-            const message = `¡Hola Susan y Winston! ✨ Confirmo mi asistencia a su boda. \n\nReservaremos ${names.length} asiento(s) de de vuelo a nombre de:\n\n${names.map((n, idx) => `👤 Pasajero ${idx+1}: ${n}`).join("\n")}\n\n¡Estamos listos para despegar! ✈️`;
-            const whatsappUrl = `https://wa.me/50684031258?text=${encodeURIComponent(message)}`;
+            // CONSTRUCCIÓN SEGURA USANDO ESCAPES UNICODE NATIVOS ASCII:
+            // Esto evita que cualquier servidor que compile mal los caracteres UTF-8 rompa la invitación.
+            let message = "*\u00A1CONFIRMACI\u00D3N DE VUELO!* \u2708\uFE0F\n\n";
+            message += "\u00A1Hola Susan y Winston! Confirmo nuestra asistencia a su boda. \n\n";
+            message += "\uD83C\uDFAB *Asientos reservados:* " + names.length + "\n";
+            message += "\uD83D\uDC65 *Pasajeros del viaje:*\n";
+            
+            names.forEach((n, idx) => {
+                message += "  \u2022 *Pasajero " + (idx + 1) + ":* " + n + "\n";
+            });
+            
+            message += "\n\u2728 _\u00A1Estamos listos para despegar con ustedes!_";
+            
+            // Limpieza absoluta de carriage returns (\r) de Windows que causan los rombos de error ""
+            const cleanMessage = message.replace(/\r/g, "");
+            
+            // Usamos la API oficial de envío de WhatsApp que es 100% compatible con emojis UTF-8
+            const whatsappUrl = "https://api.whatsapp.com/send?phone=50684031258&text=" + encodeURIComponent(cleanMessage);
             
             window.open(whatsappUrl, '_blank');
         }
@@ -695,31 +714,28 @@
             let text = "";
 
             switch(color) {
-                case 'forest':
-                    text = "🌲 Verde Bosque: Representa la exuberante vegetación de nuestro hermoso destino.";
-                    break;
                 case 'sage':
-                    text = "🌿 Verde Salvia: Un tono sofisticado, fresco y de perfecta armonía con el entorno.";
+                    text = "🌿 Verde Olivo: Un tono sofisticado, fresco y de perfecta armonía con el entorno natural.";
                     break;
-                case 'gold':
-                    text = "✨ Dorado: Aporta calidez y el toque distinguido que brilla al atardecer.";
+                case 'lila':
+                    text = "💜 Lila / Lavanda: Un color tierno y romántico que añade frescura y romance a nuestro viaje.";
                     break;
-                case 'cream':
-                    text = "🪶 Crema: El balance ideal de sobriedad y elegancia natural.";
+                case 'beige':
+                    text = "✨ Beige: Neutro, luminoso y sumamente elegante para contrastar suavemente con la naturaleza.";
                     break;
-                case 'terracota':
-                    text = "🍂 Terracota: Refleja los tonos cálidos de la tierra y la frescura de la tarde.";
+                case 'cafe':
+                    text = "🪶 Café: Un tono tierra cálido, sobrio y distinguido que complementa perfectamente toda la paleta.";
                     break;
                 default:
-                    text = "💡 Elige cualquiera de los colores sugeridos para obtener recomendaciones específicas.";
+                    text = "💡 Elige cualquiera de los colores sugeridos para obtener los significados.";
             }
 
             gsap.to(adviceBox, {
                 opacity: 0,
-                duration: 0.2,
+                duration: 0.15,
                 onComplete: () => {
                     adviceBox.innerHTML = `<p class="text-xs text-forestGreen font-semibold font-sans">${text}</p>`;
-                    gsap.to(adviceBox, { opacity: 1, duration: 0.3 });
+                    gsap.to(adviceBox, { opacity: 1, duration: 0.2 });
                 }
             });
         }
