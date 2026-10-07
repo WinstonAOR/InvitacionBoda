@@ -12,53 +12,59 @@ const guestNamesContainer = document.getElementById('guest-names-container');
 const progressBarContainer = document.getElementById('scroll-progress-container');
 const progressBar = document.getElementById('scroll-progress-bar');
 
-// --- DICCIONARIO DE TOKENS DISCRETOS (MAPEO INVISEBLE) ---
-// Asigna códigos estilo "Pase de abordaje" a cada límite de asientos.
-const GUEST_TOKENS = {
-    // Tokens para 1 invitado
-    'A1X9': 1, 'B7K2': 1, 'C3M8': 1,
-    
-    // Tokens para 2 invitados
-    'D4P1': 2, 'E8L5': 2, 'F2W9': 2,
-    
-    // Tokens para 3 invitados
-    'G9R3': 3, 'H5T7': 3, 'J1V4': 3,
-    
-    // Tokens para 4 invitados
-    'K6Z8': 4, 'L2Y0': 4, 'M7N3': 4,
-    
-    // Tokens para 5 invitados
-    'P3Q5': 5, 'R8S1': 5, 'T4U9': 5
-};
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Definir la fecha límite (Ejemplo: 15 de enero de 2027 a las 23:59)
+    const RSVP_DEADLINE = new Date("2027-01-15T23:59:59");
+    const fechaActual = new Date();
 
-// --- RESTRICCIÓN DE INVITADOS VÍA TOKEN EN URL ---
-function initGuestLimit() {
-    const urlParams = new URLSearchParams(window.location.search);
-    // Lee el parámetro ?pass= o ?ticket= o ?code=
-    const token = urlParams.get('pass') || urlParams.get('ticket') || urlParams.get('code');
-    
-    let maxGuests = 5; // Límite por defecto si no lleva token o no se reconoce
+    const reservacionContainer = document.getElementById("reservacion-container");
+    const mensajeEstado = document.getElementById("mensaje-estado");
 
-    if (token && GUEST_TOKENS[token.toUpperCase()]) {
-        maxGuests = GUEST_TOKENS[token.toUpperCase()];
-    } else {
-        // Soporte de respaldo por si ingresas un número directo como fallback
-        const numericParam = parseInt(token);
-        if (!isNaN(numericParam) && numericParam >= 1 && numericParam <= 5) {
-            maxGuests = numericParam;
+    // Validar si el plazo de confirmación ya expiró
+    if (fechaActual > RSVP_DEADLINE) {
+        if (reservacionContainer) reservacionContainer.style.display = "none";
+        if (mensajeEstado) {
+            mensajeEstado.innerHTML = `
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-center" role="alert">
+                    <strong class="font-bold">¡El plazo de confirmación ha finalizado!</strong>
+                    <p class="block sm:inline mt-1">El periodo para confirmar la asistencia ya pasó y lo lamentamos mucho. Ya cerramos la lista definitiva para tener todo listo para nuestra boda. ¡Gracias de todas formas!</p>
+                </div>
+            `;
         }
+        return; // Detiene la ejecución para que no valide el token si ya venció el plazo
     }
 
-    guestCountSelect.innerHTML = '<option value="0" disabled selected>Selecciona una opción...</option>';
+    // 2. Validación de tokens y asientos
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("pass");
 
-    for (let i = 1; i <= maxGuests; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i === 1 ? '1 Asiento' : `${i} Asientos`;
-        guestCountSelect.appendChild(option);
+    // Base de datos de tokens permitidos y sus asientos
+    const GUEST_TOKENS = {
+        "A1X9": 1, "B7K2": 1, "C3M8": 1,
+        "D4P1": 2, "E8L5": 2, "F2W9": 2,
+        "G9R3": 3, "H5T7": 3, "J1V4": 3,
+        "K6Z8": 4, "L2Y0": 4, "M7N3": 4,
+        "P3Q5": 5, "R8S1": 5, "T4U9": 5
+    };
+
+    if (!token || !GUEST_TOKENS[token]) {
+        // Si no trae pase o el pase es inválido, se oculta la sección de reserva
+        if (reservacionContainer) reservacionContainer.style.display = "none";
+        if (mensajeEstado) {
+            mensajeEstado.innerHTML = `
+                <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded relative text-center" role="alert">
+                    <strong class="font-bold">Acceso sin pase válido</strong>
+                    <p class="block sm:inline mt-1">Este enlace no cuenta con un pase de invitación válido para realizar reservaciones. Por favor, verifica el enlace personalizado que se te compartió.</p>
+                </div>
+            `;
+        }
+    } else {
+        // Si el token es válido, asignamos la cantidad de asientos permitidos
+        const asientosDisponibles = GUEST_TOKENS[token];
+        console.log(`Pase válido detectado. Asientos asignados: ${asientosDisponibles}`);
+        // Aquí puedes colocar la lógica para mostrar los campos según los asientos
     }
-}
-window.addEventListener('DOMContentLoaded', initGuestLimit);
+});
 
 // --- 1. HOVER EFECTO 3D EN PASAPORTE (TILT) ---
 passportContainer.addEventListener('mousemove', (e) => {
