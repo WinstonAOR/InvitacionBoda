@@ -13,8 +13,8 @@ const progressBarContainer = document.getElementById('scroll-progress-container'
 const progressBar = document.getElementById('scroll-progress-bar');
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Definir la fecha límite (Ejemplo: 15 de enero de 2027 a las 23:59)
-    const RSVP_DEADLINE = new Date("2027-01-15T23:59:59");
+    // 1. Definir la fecha límite del evento (Ejemplo: 31 de enero de 2027)
+    const RSVP_DEADLINE = new Date("2027-01-31T23:59:59");
     const fechaActual = new Date();
 
     const reservacionContainer = document.getElementById("reservacion-container");
@@ -25,20 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (reservacionContainer) reservacionContainer.style.display = "none";
         if (mensajeEstado) {
             mensajeEstado.innerHTML = `
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-center" role="alert">
-                    <strong class="font-bold">¡El plazo de confirmación ha finalizado!</strong>
-                    <p class="block sm:inline mt-1">El periodo para confirmar la asistencia ya pasó y lo lamentamos mucho. Ya cerramos la lista definitiva para tener todo listo para nuestra boda. ¡Gracias de todas formas!</p>
+                <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl text-center font-sans mb-4 shadow-sm" role="alert">
+                    <strong class="font-bold block text-sm mb-1">¡El check-in del vuelo ha finalizado!</strong>
+                    <p class="text-xs">El plazo para confirmar la asistencia ya pasó y lo lamentamos mucho. Ya cerramos la lista definitiva para tener todo listo para nuestra boda. ¡Gracias de todas formas!</p>
                 </div>
             `;
         }
-        return; // Detiene la ejecución para que no valide el token si ya venció el plazo
+        return;
     }
 
-    // 2. Validación de tokens y asientos
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("pass");
-
-    // Base de datos de tokens permitidos y sus asientos
+    // 2. Base de datos de tokens permitidos y sus asientos máximos
     const GUEST_TOKENS = {
         "A1X9": 1, "B7K2": 1, "C3M8": 1,
         "D4P1": 2, "E8L5": 2, "F2W9": 2,
@@ -47,22 +43,35 @@ document.addEventListener("DOMContentLoaded", () => {
         "P3Q5": 5, "R8S1": 5, "T4U9": 5
     };
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("pass");
+    const selectElement = document.getElementById("guest-count");
+
+    // 3. Validar si el token existe y es válido
     if (!token || !GUEST_TOKENS[token]) {
-        // Si no trae pase o el pase es inválido, se oculta la sección de reserva
         if (reservacionContainer) reservacionContainer.style.display = "none";
         if (mensajeEstado) {
             mensajeEstado.innerHTML = `
-                <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded relative text-center" role="alert">
-                    <strong class="font-bold">Acceso sin pase válido</strong>
-                    <p class="block sm:inline mt-1">Este enlace no cuenta con un pase de invitación válido para realizar reservaciones. Por favor, verifica el enlace personalizado que se te compartió.</p>
+                <div class="bg-yellow-50 border border-yellow-200 text-yellow-800 p-4 rounded-xl text-center font-sans mb-4 shadow-sm" role="alert">
+                    <strong class="font-bold block text-sm mb-1">Acceso sin pase válido</strong>
+                    <p class="text-xs">Este enlace no cuenta con un pase de invitación válido para realizar reservaciones. Por favor, verifica el enlace personalizado que se te compartió.</p>
                 </div>
             `;
         }
     } else {
-        // Si el token es válido, asignamos la cantidad de asientos permitidos
-        const asientosDisponibles = GUEST_TOKENS[token];
-        console.log(`Pase válido detectado. Asientos asignados: ${asientosDisponibles}`);
-        // Aquí puedes colocar la lógica para mostrar los campos según los asientos
+        // Token válido: Obtenemos el número máximo de asientos permitidos
+        const maxAsientos = GUEST_TOKENS[token];
+        
+        // Limpiamos opciones previas por seguridad
+        selectElement.innerHTML = '<option value="0" disabled selected>Selecciona una opción...</option>';
+        
+        // Poblamos dinámicamente el desplegable desde 1 hasta el máximo de asientos del pase
+        for (let i = 1; i <= maxAsientos; i++) {
+            const option = document.createElement("option");
+            option.value = i;
+            option.textContent = i === 1 ? "1 Asiento" : `${i} Asientos`;
+            selectElement.appendChild(option);
+        }
     }
 });
 
