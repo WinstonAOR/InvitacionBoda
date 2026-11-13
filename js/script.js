@@ -11,6 +11,7 @@ const guestCountSelect = document.getElementById('guest-count');
 const guestNamesContainer = document.getElementById('guest-names-container');
 const progressBarContainer = document.getElementById('scroll-progress-container');
 const progressBar = document.getElementById('scroll-progress-bar');
+let targetWhatsAppNumber = "50684031258";
 
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Definir la fecha límite del evento (Ejemplo: 31 de enero de 2027)
@@ -34,13 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // 2. Base de datos de tokens permitidos y sus asientos máximos
+    const PHONE_1 = "50684031258";
+    const PHONE_2 = "50689587393";
+
+    // 2. Base de datos de tokens (2 por cantidad de asientos: dest 1 = PHONE_1, dest 2 = PHONE_2)
     const GUEST_TOKENS = {
-        "A1X9": 1, "B7K2": 1, "C3M8": 1,
-        "D4P1": 2, "E8L5": 2, "F2W9": 2,
-        "G9R3": 3, "H5T7": 3, "J1V4": 3,
-        "K6Z8": 4, "L2Y0": 4, "M7N3": 4,
-        "P3Q5": 5, "R8S1": 5, "T4U9": 5
+        "A1X9": { max: 1, dest: 1 }, "B7K2": { max: 1, dest: 2 },
+        "D4P1": { max: 2, dest: 1 }, "E8L5": { max: 2, dest: 2 },
+        "G9R3": { max: 3, dest: 1 }, "H5T7": { max: 3, dest: 2 },
+        "K6Z8": { max: 4, dest: 1 }, "L2Y0": { max: 4, dest: 2 },
+        "P3Q5": { max: 5, dest: 1 }, "R8S1": { max: 5, dest: 2 }
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -60,7 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     } else {
         // Token válido: Obtenemos el número máximo de asientos permitidos
-        const maxAsientos = GUEST_TOKENS[token];
+        const tokenData = GUEST_TOKENS[token];
+        const maxAsientos = tokenData.max;
+        targetWhatsAppNumber = tokenData.dest === 2 ? PHONE_2 : PHONE_1;
         
         // Limpiamos opciones previas por seguridad
         selectElement.innerHTML = '<option value="0" disabled selected>Selecciona una opción...</option>';
@@ -205,7 +211,7 @@ function sendRSVP() {
     
     message += "\n_\u00A1Estamos listos para despegar con ustedes! \u2728_";
     
-    const whatsappUrl = "https://api.whatsapp.com/send?phone=50684031258&text=" + encodeURIComponent(message);
+    const whatsappUrl = "https://api.whatsapp.com/send?phone=" + targetWhatsAppNumber + "&text=" + encodeURIComponent(message);
     
     window.open(whatsappUrl, '_blank');
 }
